@@ -1,0 +1,47 @@
+name: Deploy Project P.O.S. Live
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Extract public-safe live site
+        run: |
+          rm -rf site
+          mkdir site
+          python -m zipfile -e "Project_POS_Live_Site_v0.7.1_Public_Safe.zip" site
+          test -f site/index.html
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload live site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy Project P.O.S.
+        id: deployment
+        uses: actions/deploy-pages@v4

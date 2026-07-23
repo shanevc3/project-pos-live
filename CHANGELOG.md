@@ -32,3 +32,10 @@
 
 - Application behavior, interface structure, local-first storage, voice controls, core modules, icons, and offline support were intentionally preserved.
 - `Project_POS_Live_Site_v0.7.1_Public_Safe.zip` remains in the repository as a recovery artifact only. It is no longer used by any active deployment workflow.
+
+## v0.7.4 · EP-003-R1
+
+- Corrected the EP-003 runtime-module mismatch.
+- Aligned `core/executive.js` with the natural-language intent implementation.
+- Added a verification guard so this specific mismatch cannot silently recur.
+- Advanced the visible marker and service-worker cache for the repair release.

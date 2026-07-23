@@ -43,6 +43,11 @@ if (manifest.start_url !== "./" || manifest.scope !== "./") {
   );
 }
 
+const executiveRuntime = await readFile(resolve(root, "core/executive.js"), "utf8");
+if (!executiveRuntime.includes("export function canonicalizeNaturalLanguage")) {
+  throw new Error("core/executive.js is missing the EP-003 natural-language runtime export.");
+}
+
 const serviceWorker = await readFile(resolve(root, "sw.js"), "utf8");
 
 for (const relativePath of requiredFiles.filter(path =>
@@ -72,11 +77,11 @@ if (workflowFiles.length !== 1 || workflowFiles[0] !== "deploy.yml") {
   );
 }
 
-if (!indexHtml.includes("v0.7.4 · EP-003")) {
+if (!indexHtml.includes("v0.7.4 · EP-003-R1")) {
   throw new Error("index.html does not contain the EP-003 visible version marker.");
 }
 
-if (!serviceWorker.includes("project-pos-axiom-v0.7.4-ep003")) {
+if (!serviceWorker.includes("project-pos-axiom-v0.7.4-ep003-r1")) {
   throw new Error("Service Worker cache version was not advanced for EP-003.");
 }
 

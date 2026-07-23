@@ -1,4 +1,4 @@
-const CACHE_NAME = "project-pos-axiom-v0.7.4-ep003";
+const CACHE_NAME = "project-pos-axiom-v0.7.4-ep003-r1";
 const APP_SHELL = [
   "./", "./index.html", "./styles.css", "./app.js",
   "./manifest.webmanifest", "./offline.html",

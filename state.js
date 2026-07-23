@@ -7,7 +7,7 @@ export const DEFAULT_STATE = Object.freeze({
   project: "Project P.O.S.",
   user: { name: "Shane", role: "Steward" },
   system: {
-    appVersion: "0.7.4",
+    appVersion: "0.7.1",
     releaseChannel: "open-door-rc1",
     firstInstalledAt: null,
     lastOpenedAt: null
@@ -123,7 +123,7 @@ function mergeDefaults(defaultValue, suppliedValue) {
 export function migrateState(rawState) {
   const migrated = mergeDefaults(clone(DEFAULT_STATE), rawState || {});
   migrated.schemaVersion = "0.2.0";
-  migrated.system.appVersion = "0.7.4";
+  migrated.system.appVersion = "0.7.1";
   migrated.system.releaseChannel = "open-door-rc1";
   migrated.system.firstInstalledAt ||= new Date().toISOString();
   migrated.system.lastOpenedAt = new Date().toISOString();

@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { constants } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -58,6 +58,26 @@ for (const reference of ["styles.css", "manifest.webmanifest", "app.js"]) {
   if (!indexHtml.includes(reference)) {
     throw new Error(`index.html does not reference ${reference}`);
   }
+}
+
+
+const workflowDirectory = resolve(root, ".github/workflows");
+const workflowFiles = (await readdir(workflowDirectory)).filter(file =>
+  file.endsWith(".yml") || file.endsWith(".yaml")
+);
+
+if (workflowFiles.length !== 1 || workflowFiles[0] !== "deploy.yml") {
+  throw new Error(
+    `Expected exactly one deployment workflow named deploy.yml; found: ${workflowFiles.join(", ")}`
+  );
+}
+
+if (!indexHtml.includes("v0.7.4 · EP-003")) {
+  throw new Error("index.html does not contain the EP-003 visible version marker.");
+}
+
+if (!serviceWorker.includes("project-pos-axiom-v0.7.4-ep003")) {
+  throw new Error("Service Worker cache version was not advanced for EP-003.");
 }
 
 console.log("Project P.O.S. repository verification passed.");

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#020504">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Axiom">
+  <meta name="description" content="A private, local-first Personal Operating System foundation.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Axiom — Project P.O.S.</title>
+</head>
+<body>
+  <main id="console" class="console" aria-live="polite">
+    <header class="system-bar">
+      <div>
+        <span class="system-name">AXIOM</span>
+        <span id="versionLabel" class="version-label">v0.7.1 · OPEN DOOR RC1</span>
+      </div>
+      <button id="menuButton" class="icon-button" aria-label="Open controls" type="button">•••</button>
+    </header>
+
+    <section class="presence" aria-label="Axiom status">
+      <button id="voiceButton" class="signal" type="button" aria-label="Press to speak">
+        <span class="signal-core"></span>
+      </button>
+      <p id="status" class="status">Ready</p>
+    </section>
+
+    <section id="responsePanel" class="response-panel">
+      <p id="response" class="response">A quiet pattern has emerged.</p>
+      <div id="results" class="results"></div>
+    </section>
+
+    <form id="commandForm" class="command-form">
+      <label class="visually-hidden" for="commandInput">Command</label>
+      <input id="commandInput" autocomplete="off" autocapitalize="sentences"
+        placeholder="Speak, type, or use iPhone dictation">
+      <button type="submit">Send</button>
+    </form>
+
+    <aside id="controls" class="controls hidden" aria-label="Touch controls">
+      <button data-command="show state" type="button">State</button>
+      <button data-command="show focus" type="button">Focus</button>
+      <button data-command="show current session" type="button">Session</button>
+      <button data-command="start private test" type="button">Test</button>
+      <button data-command="show system status" type="button">Status</button>
+      <button data-command="show brains" type="button">Brains</button>
+      <button data-command="show rights" type="button">Rights</button>
+      <button data-command="show seasons" type="button">Seasons</button>
+      <button data-command="show event ledger" type="button">Events</button>
+      <button data-command="show seed candidates" type="button">Candidates</button>
+      <button data-command="show seeds" type="button">Seeds</button>
+      <button data-command="show proposals" type="button">Proposals</button>
+      <button data-command="run winter audit" type="button">Audit</button>
+      <button data-command="show backup status" type="button">Backup</button>
+      <button data-command="privacy shield" type="button">Privacy</button>
+      <button data-command="help" type="button">Help</button>
+      <button data-command="export recovery" type="button">Export</button>
+      <label class="import-label">
+        Import
+        <input id="importInput" type="file" accept="application/json,.json">
+      </label>
+      <button id="eraseButton" class="danger-control" type="button">Erase Local</button>
+    </aside>
+
+    <section id="privacyShield" class="privacy-shield hidden" aria-label="Privacy shield">
+      <p>DISPLAY SHIELDED</p>
+      <button id="resumeButton" type="button">Resume</button>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(console.warn));
+    }
+  </script>
+</body>
+</html>

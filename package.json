@@ -1,14 +1,14 @@
 {
   "name": "project-pos-live",
-  "version": "0.7.4",
+  "version": "0.7.4-r2",
   "private": true,
   "type": "module",
   "description": "Project P.O.S. live iPhone-first progressive web application.",
   "scripts": {
-    "check:syntax": "node --check app.js && node --check sw.js && node --check core/constitution.js && node --check core/diagnostics.js && node --check core/executive.js && node --check core/focus.js && node --check core/governance.js && node --check core/memory.js && node --check core/recovery.js && node --check core/sessions.js && node --check core/state.js && node --check core/testing.js",
-    "verify": "node scripts/verify-static.mjs",
+    "check:syntax": "node --check app.js && node --check sw.js && node --check constitution.js && node --check diagnostics.js && node --check executive.js && node --check focus.js && node --check governance.js && node --check memory.js && node --check recovery.js && node --check sessions.js && node --check state.js && node --check testing.js",
+    "verify": "node verify-static.mjs",
     "check": "npm run check:syntax && npm run test:intents && npm run verify",
-    "stage": "node scripts/stage-pages.mjs",
-    "test:intents": "node scripts/test-intents.mjs"
+    "stage": "node stage-pages.mjs",
+    "test:intents": "node test-intents.mjs"
   }
 }

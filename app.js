@@ -1,32 +1,32 @@
-import { rightsSummary, constitutionalGuard } from "./core/constitution.js";
-import { loadState, saveState, migrateState, resetLocalState } from "./core/state.js";
+import { rightsSummary, constitutionalGuard } from "./constitution.js";
+import { loadState, saveState, migrateState, resetLocalState } from "./state.js";
 import {
   captureEvent, captureSeedCandidate, captureSeed, captureNote,
   shouldBecomeSeedCandidate, searchLocal
-} from "./core/memory.js";
+} from "./memory.js";
 import {
   SEASONS, requestAction, runWinterAudit,
   createChangeProposal, decideProposal
-} from "./core/governance.js";
+} from "./governance.js";
 import {
   normalizeCommand, applyAlias, classifyCommand, nextHealthyFaithfulStep
-} from "./core/executive.js";
+} from "./executive.js";
 import {
   createProject, createGoal, setNextStone, focusSummary
-} from "./core/focus.js";
+} from "./focus.js";
 import {
   openWorkshopSession, closeWorkshopSession
-} from "./core/sessions.js";
+} from "./sessions.js";
 import {
   PRIVATE_TEST_CHECKLIST, startPrivateTest, recordTestResult,
   currentTestRun, testReportMarkdown
-} from "./core/testing.js";
+} from "./testing.js";
 import {
   createRecoveryBundle, verifyRecoveryBundle, backupHealth
-} from "./core/recovery.js";
+} from "./recovery.js";
 import {
   collectBrowserDiagnostics, requestPersistentStorage
-} from "./core/diagnostics.js";
+} from "./diagnostics.js";
 
 const els = {
   console: document.getElementById("console"),

@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.7.4 EP-003-R2
+
+- Repaired GitHub Actions verification for iPhone-flattened uploads.
+- Moved runtime and verification dependencies to repository-root files.
+- Updated service-worker and manifest paths to root-level modules and icons.
+- Updated workflow runtime to Node.js 24.
+
 ## v0.7.4 · EP-003 · Natural-Language Intent Recognition
 
 - Added polite conversational phrasing support without changing existing canonical commands.

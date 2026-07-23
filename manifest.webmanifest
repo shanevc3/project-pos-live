@@ -1,7 +1,7 @@
 {
   "name": "Axiom \u2014 Project P.O.S. Open Door",
   "short_name": "Axiom",
-  "description": "Open Door RC1: a private, local-first Personal Operating System foundation.",
+  "description": "EP-001: protected single-pipeline release of the private, local-first Personal Operating System foundation.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

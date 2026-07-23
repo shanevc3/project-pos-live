@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.7.3 · EP-002 · Greeting Recognition Patch
+
+- Added direct recognition for common greetings including `Hello Axiom`, `Hi Axiom`, and time-of-day greetings.
+- Added a concise ready response that directs users to `help`.
+- Preserved the verified single GitHub Pages deployment pipeline.
+- Advanced application, visible release, and service-worker cache versions.
+- Retained all existing EP-001 behavior and the documented iOS Home Screen speech limitation.
+
 ## v0.7.2 · EP-001 · First Verified Patch Release
 
 ### Changed

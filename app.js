@@ -233,6 +233,12 @@ async function processCommand(rawInput) {
 
   try {
     switch (intent) {
+      case "greeting":
+        addResult(event.id, original);
+        respond("Hello. Axiom is ready. Say help to view the current command patterns.");
+        outcome = "Greeting acknowledged.";
+        break;
+
       case "help":
         showHelp();
         outcome = "Displayed commands.";

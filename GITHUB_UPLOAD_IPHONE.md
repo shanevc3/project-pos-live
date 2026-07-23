@@ -1,29 +1,20 @@
-# Upload EP-001 to GitHub from iPhone
+# Upload EP-002 to GitHub from iPhone
 
-This package is a complete repository-root release. Upload the **contents inside the extracted folder**, not the enclosing folder itself.
+1. Preserve the currently working v0.7.2 repository as the rollback baseline.
+2. Download and extract `Project_POS_Axiom_v0.7.3_EP-002_GitHub_Root.zip` in Files.
+3. Open `project-pos-live` in Safari and choose **Add file → Upload files**.
+4. Select every item inside the extracted folder, including `.github`, `core`, `icons`, and `scripts`.
+5. Upload into the repository root, not into an enclosing folder.
+6. Commit directly to `main` with:
 
-## Safer test-first path
+   `Release v0.7.3 EP-002 greeting recognition patch`
 
-1. In GitHub, create a new test repository or a temporary branch from the current `project-pos-live` state.
-2. Download and extract `Project_POS_Axiom_v0.7.2_EP-001_GitHub_Root.zip` in the iPhone Files app.
-3. In Safari, open the test repository and choose **Add file → Upload files**.
-4. Upload all extracted files and folders to the repository root.
-5. Confirm that `.github/workflows/deploy.yml` exists and `.github/workflows/main.yml` does not.
-6. Commit with: `Deploy v0.7.2 EP-001 single-pipeline patch`.
-7. Open **Actions** and wait for **Project POS Deploy** to complete successfully.
-8. Test the Pages URL in Safari. Confirm the top version marker reads `v0.7.2 · EP-001`.
-9. Test the Home Screen installation. Close and reopen it so the new service-worker cache can activate.
+7. Open `.github/workflows` and confirm only `deploy.yml` remains.
+8. Wait for the GitHub Actions deployment to finish successfully.
+9. Open the live Pages URL in Safari and refresh.
+10. Confirm the marker reads `v0.7.3 · EP-002`.
+11. Enter or speak `Hello Axiom` and confirm the greeting is recognized.
 
-## Apply to the live repository
+## Rollback
 
-After the test deployment succeeds, repeat the same root upload in `project-pos-live`.
-
-## Verification checklist
-
-- Only one workflow runs: **Project POS Deploy**.
-- No workflow extracts `Project_POS_Live_Site_v0.7.1_Public_Safe.zip`.
-- The live version marker reads `v0.7.2 · EP-001`.
-- Axiom opens in Safari.
-- Axiom opens from the Home Screen.
-- Existing local data remains available.
-- Offline fallback still loads after the new cache has been installed once online.
+Use GitHub commit history to revert the EP-002 commit, or restore the protected v0.7.2 EP-001 package. Do not restore `main.yml`.

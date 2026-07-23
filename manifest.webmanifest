@@ -1,7 +1,7 @@
 {
   "name": "Axiom \u2014 Project P.O.S. Open Door",
   "short_name": "Axiom",
-  "description": "EP-001: protected single-pipeline release of the private, local-first Personal Operating System foundation.",
+  "description": "EP-002: greeting recognition patch built on the verified single-pipeline Axiom baseline.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

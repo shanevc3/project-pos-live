@@ -72,12 +72,12 @@ if (workflowFiles.length !== 1 || workflowFiles[0] !== "deploy.yml") {
   );
 }
 
-if (!indexHtml.includes("v0.7.2 · EP-001")) {
-  throw new Error("index.html does not contain the EP-001 visible version marker.");
+if (!indexHtml.includes("v0.7.3 · EP-002")) {
+  throw new Error("index.html does not contain the EP-002 visible version marker.");
 }
 
-if (!serviceWorker.includes("project-pos-axiom-v0.7.2-ep001")) {
-  throw new Error("Service Worker cache version was not advanced for EP-001.");
+if (!serviceWorker.includes("project-pos-axiom-v0.7.3-ep002")) {
+  throw new Error("Service Worker cache version was not advanced for EP-002.");
 }
 
 console.log("Project P.O.S. repository verification passed.");

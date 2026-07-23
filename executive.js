@@ -32,6 +32,8 @@ export function classifyCommand(command) {
   const openSession = command.match(/^open (?:workshop )?session(?: called)?\s+(.+)$/i);
   const testResult = command.match(/^test (pass|fail|skip)\s+(\d+)(?:\s+(.+))?$/i);
 
+  if (/^(hello|hi|hey)(?: axiom)?$/.test(command)) return { intent: "greeting" };
+  if (/^(good morning|good afternoon|good evening)(?: axiom)?$/.test(command)) return { intent: "greeting" };
   if (/^(help|commands|what can you do)$/.test(command)) return { intent: "help" };
   if (/^(show|open) (?:the )?(?:project )?state$/.test(command)) return { intent: "show_state" };
   if (/^(show|open) (?:the )?(?:focus|goals|projects)$/.test(command)) return { intent: "show_focus" };

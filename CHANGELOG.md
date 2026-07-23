@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.7.4 · EP-003 · Natural-Language Intent Recognition
+
+- Added polite conversational phrasing support without changing existing canonical commands.
+- Added wake-word handling for both `Axiom, hello` and `hello Axiom`.
+- Added natural requests such as `show me`, `can you`, `could you`, and `I would like you to`.
+- Added a direct `show_next_step` intent for questions such as `What should I do next?`.
+- Added automated intent regression tests.
+- Preserved the single `deploy.yml` workflow and all existing runtime behavior.
+
 ## v0.7.3 · EP-002 · Greeting Recognition Patch
 
 - Added direct recognition for common greetings including `Hello Axiom`, `Hi Axiom`, and time-of-day greetings.

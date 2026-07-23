@@ -1,9 +1,73 @@
 export function normalizeCommand(text) {
   return String(text)
+    .normalize("NFKC")
+    .replace(/[\u2018\u2019]/g, "'")
     .trim()
     .toLowerCase()
+    .replace(/\s+/g, " ")
     .replace(/^axiom[\s,:-]*/i, "")
-    .replace(/[.!?]+$/g, "");
+    .replace(/[\s,:-]*axiom$/i, "")
+    .replace(/[.!?]+$/g, "")
+    .trim();
+}
+
+function removePoliteWrapper(text) {
+  let command = normalizeCommand(text);
+
+  const wrappers = [
+    /^(?:please\s+)/,
+    /^(?:can|could|would|will) you (?:please )?/,
+    /^(?:i want you to|i need you to|i would like you to|i'd like you to) /,
+    /^(?:would you mind) /
+  ];
+
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const wrapper of wrappers) {
+      const next = command.replace(wrapper, "").trim();
+      if (next !== command) {
+        command = next;
+        changed = true;
+      }
+    }
+  }
+
+  return command.replace(/\s+please$/, "").trim();
+}
+
+export function canonicalizeNaturalLanguage(text) {
+  let command = removePoliteWrapper(text);
+
+  const rewrites = [
+    [/^show me (?:the )?/, "show "],
+    [/^tell me about\s+/, "show "],
+    [/^let me see\s+/, "show "],
+    [/^what can axiom do$/, "help"],
+    [/^what commands (?:do you have|are available)$/, "help"],
+    [/^how (?:is|are) (?:the )?system(?: doing)?$/, "show system status"],
+    [/^what(?:'s| is) (?:the )?system status$/, "show system status"],
+    [/^what(?:'s| is) (?:the )?(?:project |workshop )?state$/, "show state"],
+    [/^where (?:are we|am i)$/, "show state"],
+    [/^what (?:should i do|do i do) next$/, "show next step"],
+    [/^what(?:'s| is) (?:my |the )?next (?:step|action|stone)$/, "show next step"],
+    [/^give me (?:my |the )?next (?:step|action|stone)$/, "show next step"],
+    [/^who are (?:the )?(?:four )?brains$/, "show brains"],
+    [/^what are my rights$/, "show rights"],
+    [/^make (?:a )?project(?: called| named)?\s+/, "create project "],
+    [/^start (?:a )?project(?: called| named)?\s+/, "create project "],
+    [/^make (?:a )?goal(?: called| named)?\s+/, "set goal "],
+    [/^set (?:my |the )?next (?:step|action)(?: to)?\s+/, "set next stone "]
+  ];
+
+  for (const [pattern, replacement] of rewrites) {
+    if (pattern.test(command)) {
+      command = command.replace(pattern, replacement).trim();
+      break;
+    }
+  }
+
+  return command;
 }
 
 export function applyAlias(command, aliases = {}) {
@@ -18,13 +82,15 @@ export function applyAlias(command, aliases = {}) {
 }
 
 export function classifyCommand(command) {
+  command = canonicalizeNaturalLanguage(command);
+
   const teach = command.match(/^when i say (.+?),? i mean (.+)$/i);
   const seed = command.match(/^(?:capture|preserve|add) (?:a )?seed(?: called)?\s+(.+)$/i);
-  const note = command.match(/^(?:remember|record note|capture note)\s+(.+)$/i);
+  const note = command.match(/^(?:remember that|remember|record note|capture note)\s+(.+)$/i);
   const localSearch = command.match(/^(?:search|find)(?: the)? (?:archive|records|database)(?: for)?\s+(.+)$/i);
   const webSearch = command.match(/^(?:search|look up|find)(?: the)? web(?: for)?\s+(.+)$/i);
-  const project = command.match(/^(?:create|add) project\s+(.+)$/i);
-  const goal = command.match(/^(?:set|add|create) goal\s+(.+)$/i);
+  const project = command.match(/^(?:create|add) project(?: called| named)?\s+(.+)$/i);
+  const goal = command.match(/^(?:set|add|create) goal(?: called| named)?\s+(.+)$/i);
   const stone = command.match(/^set (?:the )?next (?:faithful )?stone(?: to)?\s+(.+)$/i);
   const proposal = command.match(/^propose change\s+(.+)$/i);
   const approve = command.match(/^approve proposal\s+(prop-\d+)$/i);
@@ -32,13 +98,14 @@ export function classifyCommand(command) {
   const openSession = command.match(/^open (?:workshop )?session(?: called)?\s+(.+)$/i);
   const testResult = command.match(/^test (pass|fail|skip)\s+(\d+)(?:\s+(.+))?$/i);
 
-  if (/^(hello|hi|hey)(?: axiom)?$/.test(command)) return { intent: "greeting" };
+  if (/^(hello|hi|hey|hello there|hi there)(?: axiom)?$/.test(command)) return { intent: "greeting" };
   if (/^(good morning|good afternoon|good evening)(?: axiom)?$/.test(command)) return { intent: "greeting" };
   if (/^(help|commands|what can you do)$/.test(command)) return { intent: "help" };
-  if (/^(show|open) (?:the )?(?:project )?state$/.test(command)) return { intent: "show_state" };
+  if (/^(show|open) (?:the )?(?:project |workshop )?state$/.test(command)) return { intent: "show_state" };
+  if (/^(show|open) (?:the )?(?:next step|next action|next stone)$/.test(command)) return { intent: "show_next_step" };
   if (/^(show|open) (?:the )?(?:focus|goals|projects)$/.test(command)) return { intent: "show_focus" };
   if (/^(show|open) (?:the )?(?:brains|four brains)$/.test(command)) return { intent: "show_brains" };
-  if (/^(show|open) (?:the )?(?:rights|rights charter|constitution)$/.test(command)) return { intent: "show_rights" };
+  if (/^(show|open) (?:the )?(?:my )?(?:rights|rights charter|constitution)$/.test(command)) return { intent: "show_rights" };
   if (/^(show|open) (?:the )?(?:seasons|forest seasons|living forest)$/.test(command)) return { intent: "show_seasons" };
   if (/^(show|open) (?:the )?(?:event ledger|events)$/.test(command)) return { intent: "show_events" };
   if (/^(show|open) (?:the )?(?:seed candidates|candidates)$/.test(command)) return { intent: "show_candidates" };

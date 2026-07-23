@@ -1,7 +1,7 @@
 {
   "name": "Axiom \u2014 Project P.O.S. Open Door",
   "short_name": "Axiom",
-  "description": "EP-002: greeting recognition patch built on the verified single-pipeline Axiom baseline.",
+  "description": "EP-003: natural-language intent recognition built on the verified iPhone-only deployment baseline.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

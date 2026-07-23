@@ -146,6 +146,7 @@ function openWebSearch(query) {
 function showHelp() {
   const commands = [
     ["Orientation", "show state"],
+    ["Next step", "what should I do next?"],
     ["Focus", "show focus"],
     ["Project", "create project [name]"],
     ["Goal", "set goal [text]"],
@@ -252,6 +253,14 @@ async function processCommand(rawInput) {
         respond("The Workshop is oriented.", false);
         outcome = "Displayed project state.";
         break;
+
+      case "show_next_step": {
+        const nextStep = nextHealthyFaithfulStep(state);
+        addResult("Next healthy faithful step", nextStep);
+        respond(nextStep);
+        outcome = `Displayed next step: ${nextStep}`;
+        break;
+      }
 
       case "show_focus":
         showFocus();

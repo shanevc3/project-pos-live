@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.7.4 EP-003-R3
+- Fixed GitHub Actions `ERR_MODULE_NOT_FOUND` caused by `test-intents.mjs` importing `../core/executive.js`.
+- Standardized active verification and runtime imports on repository-root files.
+- Corrected the duplicated visible release marker.
+- Advanced the service-worker cache and root Apple touch icon reference.
+- Added regression guards for the failed EP-003 upload paths.
+
 ## v0.7.4 EP-003-R2
 
 - Repaired GitHub Actions verification for iPhone-flattened uploads.
